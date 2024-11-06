@@ -12,7 +12,7 @@ async function downloadVideo() {
 
     try {
         // Mengirim permintaan ke server API eksternal untuk mengunduh video
-        const response = await fetch('https://60acd142a7msh01db615b57e6efep13e23ajsna8ecd08fee74/tiktok/download', {
+        const response = await fetch('https://tiktok-video-downloader-api.p.rapidapi.com/user/khaby.lame', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: videoURL })
