@@ -1,15 +1,36 @@
-const data = null;
+async function downloadVideo() {
+    const videoURL = document.getElementById("videoURL").value;
+    const result = document.getElementById("result");
 
-const xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+    // Validasi URL
+    if (!videoURL.includes("tiktok.com")) {
+        result.innerHTML = "Please enter a valid TikTok URL.";
+        return;
+    }
 
-xhr.addEventListener('readystatechange', function () {
-	if (this.readyState === this.DONE) {
-		console.log(this.responseText);
-	}
-});
+    result.innerHTML = "Processing...";
 
-xhr.open('GET', 'https://tiktok-download-video-no-watermark.p.rapidapi.com/tiktok/info?url=https%3A%2F%2Fvt.tiktok.com%2FZGJBQHoHA%2F');
-xhr.setRequestHeader('x-rapidapi-key', '60acd142a7msh01db615b57e6efep13e23ajsna8ecd08fee74');
-xhr.setRequestHeader('x-rapidapi-host', 'tiktok-download-video-no-watermark.p.rapidapi.com');
-xhr.send(data);
+    try {
+        // Mengirim permintaan ke server API eksternal untuk mengunduh video
+        const response = await fetch('https://api.example.com/tiktok/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: videoURL })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Menampilkan link unduhan jika berhasil
+            result.innerHTML = `
+                <p>Video Downloaded Successfully!</p>
+                <a href="${data.downloadLink}" target="_blank">Download Video</a>
+            `;
+        } else {
+            result.innerHTML = "Failed to download video. Please try again.";
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        result.innerHTML = "An error occurred while downloading the video.";
+    }
+}
