@@ -12,7 +12,7 @@ async function downloadVideo() {
 
     try {
         // Mengirim permintaan ke server API eksternal untuk mengunduh video
-        const response = await fetch('https://api.example.com/tiktok/download', {
+        const response = await fetch('https://60acd142a7msh01db615b57e6efep13e23ajsna8ecd08fee74/tiktok/download', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: videoURL })
